@@ -4,7 +4,7 @@ Plugin loading made easy.
 
 ## What is possible?
 
-Starlight can load plugins in the jar format. Those plugins can access every class from the parrent project which loads those plugins.
+Starlight can load plugins in the jar format. Those plugins can access every class from the parrent project which loads those plugins. Plugins need to specify a main class and a name in a plugin.json file. This file needs to be placed in the root of the jar. The plugin.json file can contain a version but doesen't need to include it.
 
 ## Examples
 
@@ -23,7 +23,7 @@ public class Entry
     public void entry(PluginData data)
     {
         System.out.println("I am " + data.toString());
-		}
+    }
 }
 
 ```
@@ -49,3 +49,6 @@ public class Main
     }
 }
 ```
+
+
+A full example can be found in this repository in the starlight-loader and starlight-plugin folders.
