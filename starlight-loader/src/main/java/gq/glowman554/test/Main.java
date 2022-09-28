@@ -13,5 +13,7 @@ public class Main
 
 		Starlight s = new Starlight("plugins");
 		s.load();
+		
+		new TestEvent().call();
 	}
 }
