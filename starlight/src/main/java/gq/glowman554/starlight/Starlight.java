@@ -24,7 +24,10 @@ public class Starlight
 	{
 		if (debug)
 		{
-			System.out.println("[STARLIGHT] " + msg);
+			for (String line : msg.split("\\n"))
+			{
+				System.out.println("[STARLIGHT] " + line);
+			}
 		}
 	}
 
@@ -90,11 +93,12 @@ public class Starlight
 				try
 				{
 					pl.init();
-					log(String.format("[%s] Loading %s...", f.getName(), pl.toString()));
+					log(String.format("[%s] Loading %s...", f.getName(), pl.getPluginData().toString()));
 					plugins.add(pl.instantiate());
 					pl.load();
 
-					log(String.format("[%s] Loaded %s!", f.getName(), pl.toString()));
+					log(String.format("[%s] Loaded %s!", f.getName(), pl.getPluginData().toString()));
+					log(pl.toString());
 				}
 				catch (StarlightException e)
 				{
@@ -105,5 +109,10 @@ public class Starlight
 			{
 				log("Unsupported plugin format for file: " + f.getName());
 			}
+	}
+
+	public static String autoToString(Object o)
+	{
+		return StarlightAutoToString.autoToString(o);
 	}
 }

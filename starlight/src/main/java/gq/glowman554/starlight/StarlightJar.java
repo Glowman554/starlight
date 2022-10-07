@@ -8,16 +8,18 @@ import java.net.URLClassLoader;
 import gq.glowman554.reflex.Reflex;
 import gq.glowman554.reflex.loaders.ReflexJsonLoader;
 import gq.glowman554.starlight.annotations.StarlightEntry;
+import gq.glowman554.starlight.annotations.StarlightHidden;
 import gq.glowman554.starlight.data.PluginData;
 import gq.glowman554.starlight.utils.StreamReader;
 
-public class StarlightJar
+public class StarlightJar extends StarlightAutoToString
 {
 	private final String jar_file;
 
 	private URLClassLoader child;
 	private Class<?> plugin_class;
 
+	@StarlightHidden
 	private Object plugin_instance;
 	private PluginData plugin_data;
 
@@ -94,10 +96,9 @@ public class StarlightJar
 			throw new StarlightException(e);
 		}
 	}
-
-	@Override
-	public String toString()
+	
+	public PluginData getPluginData()
 	{
-		return plugin_data.toString();
+		return plugin_data;
 	}
 }

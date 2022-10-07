@@ -2,7 +2,9 @@ package gq.glowman554.starlight.data;
 
 import java.lang.reflect.Method;
 
-public class EventData
+import gq.glowman554.starlight.StarlightAutoToString;
+
+public class EventData extends StarlightAutoToString
 {
 	public final Object source;
 	public final Method target;

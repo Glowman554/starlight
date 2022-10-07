@@ -131,6 +131,7 @@ public class StarlightEventManager
 			{
 
 				{
+					Starlight.log(methodData.toString());
 					this.add(methodData);
 				}
 
