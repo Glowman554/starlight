@@ -1,6 +1,7 @@
 package gq.glowman554.starlight;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InaccessibleObjectException;
 
 import gq.glowman554.starlight.annotations.StarlightHidden;
 import gq.glowman554.starlight.utils.TableBuilder;
@@ -38,9 +39,9 @@ public class StarlightAutoToString
 
 						tb.pushRow(new String[] {f.getName(), f.get(o).toString()});
 					}
-					catch (IllegalArgumentException | IllegalAccessException e)
+					catch (IllegalArgumentException | IllegalAccessException | InaccessibleObjectException e)
 					{
-						tb.pushRow(new String[] {f.getName(), "<error>: " + e.getMessage()});
+						tb.pushRow(new String[] {f.getName(), "<error>" });
 					}
 				}
 			}
