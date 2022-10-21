@@ -12,36 +12,49 @@ public class StarlightAutoToString
 	{
 		Class<?> clazz = o.getClass();
 		Starlight.log("Generating toString string for " + clazz.getSimpleName());
-		
-		TableBuilder tb = new TableBuilder();
-		tb.initCollums(new String[] { "Filed name", "Field value" });
 
-		for (Field f : clazz.getDeclaredFields())
+		TableBuilder tb = new TableBuilder();
+		tb.initCollums(new String[] {"Filed name", "Field value"});
+
+		boolean running = true;
+		while (running)
 		{
-			if (f.isAnnotationPresent(StarlightHidden.class))
+			for (Field f : clazz.getDeclaredFields())
 			{
-				tb.pushRow(new String[] { f.getName(), "<hidden>" });
+				if (f.isAnnotationPresent(StarlightHidden.class))
+				{
+					tb.pushRow(new String[] {f.getName(), "<hidden>"});
+				}
+				else
+				{
+					try
+					{
+						boolean access = f.canAccess(o);
+						if (!access)
+						{
+							Starlight.log("Trying to set accessible for " + f.getName());
+							f.setAccessible(!access);
+						}
+
+						tb.pushRow(new String[] {f.getName(), f.get(o).toString()});
+					}
+					catch (IllegalArgumentException | IllegalAccessException e)
+					{
+						tb.pushRow(new String[] {f.getName(), "<error>: " + e.getMessage()});
+					}
+				}
+			}
+			
+			if (clazz.getSuperclass() != null)
+			{
+				clazz = clazz.getSuperclass();
 			}
 			else
 			{
-				try
-				{
-					boolean access = f.canAccess(o);
-					if (!access)
-					{
-						Starlight.log("Trying to set accessible for " + f.getName());
-						f.setAccessible(!access);
-					}
-					
-					tb.pushRow(new String[] { f.getName(), f.get(o).toString() });
-				}
-				catch (IllegalArgumentException | IllegalAccessException e)
-				{
-					tb.pushRow(new String[] { f.getName(), "<error>: " + e.getMessage() });
-				}
+				running = false;
 			}
 		}
-		
+
 		return tb.toString();
 	}
 

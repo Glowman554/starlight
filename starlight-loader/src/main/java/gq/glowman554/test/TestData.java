@@ -15,4 +15,7 @@ public class TestData extends StarlightAutoToString
 	public String test5 = "idk";
 	@StarlightHidden
 	private String test6 = "idk2";
+	
+	protected String test7 = "hello from a protected field";
+	protected int test8 = 30;
 }
