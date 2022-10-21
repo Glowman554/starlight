@@ -37,7 +37,8 @@ public class StarlightAutoToString
 							f.setAccessible(!access);
 						}
 
-						tb.pushRow(new String[] {f.getName(), f.get(o).toString()});
+						Object x = f.get(o);
+						tb.pushRow(new String[] {f.getName(), x != null ? x.toString() : "null" });
 					}
 					catch (IllegalArgumentException | IllegalAccessException | InaccessibleObjectException e)
 					{
